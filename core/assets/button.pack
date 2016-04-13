@@ -1,0 +1,152 @@
+
+button.png
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+btn_continue
+  rotate: false
+  xy: 1, 367
+  size: 200, 120
+  orig: 200, 120
+  offset: 0, 0
+  index: -1
+btn_next
+  rotate: false
+  xy: 1, 245
+  size: 200, 120
+  orig: 200, 120
+  offset: 0, 0
+  index: -1
+btn_retry
+  rotate: false
+  xy: 203, 367
+  size: 200, 120
+  orig: 200, 120
+  offset: 0, 0
+  index: -1
+classic
+  rotate: false
+  xy: 1, 123
+  size: 200, 120
+  orig: 200, 120
+  offset: 0, 0
+  index: -1
+classic_down
+  rotate: false
+  xy: 203, 245
+  size: 200, 120
+  orig: 200, 120
+  offset: 0, 0
+  index: -1
+shengji
+  rotate: false
+  xy: 405, 367
+  size: 200, 120
+  orig: 200, 120
+  offset: 0, 0
+  index: -1
+shengji_down
+  rotate: false
+  xy: 1, 1
+  size: 200, 120
+  orig: 200, 120
+  offset: 0, 0
+  index: -1
+level
+  rotate: false
+  xy: 203, 163
+  size: 160, 80
+  orig: 160, 80
+  offset: 0, 0
+  index: -1
+back
+  rotate: false
+  xy: 203, 26
+  size: 85, 135
+  orig: 85, 135
+  offset: 0, 0
+  index: -1
+back_down
+  rotate: false
+  xy: 290, 26
+  size: 85, 135
+  orig: 85, 135
+  offset: 0, 0
+  index: -1
+btn_pause
+  rotate: false
+  xy: 405, 230
+  size: 85, 135
+  orig: 85, 135
+  offset: 0, 0
+  index: -1
+btn_reset
+  rotate: false
+  xy: 492, 230
+  size: 85, 135
+  orig: 85, 135
+  offset: 0, 0
+  index: -1
+help
+  rotate: false
+  xy: 607, 352
+  size: 85, 135
+  orig: 85, 135
+  offset: 0, 0
+  index: -1
+help_down
+  rotate: false
+  xy: 694, 352
+  size: 85, 135
+  orig: 85, 135
+  offset: 0, 0
+  index: -1
+musicoff
+  rotate: false
+  xy: 781, 352
+  size: 85, 135
+  orig: 85, 135
+  offset: 0, 0
+  index: -1
+musicon
+  rotate: false
+  xy: 868, 352
+  size: 85, 135
+  orig: 85, 135
+  offset: 0, 0
+  index: -1
+icon
+  rotate: false
+  xy: 579, 250
+  size: 100, 100
+  orig: 100, 100
+  offset: 0, 0
+  index: -1
+lock
+  rotate: false
+  xy: 681, 262
+  size: 88, 88
+  orig: 88, 88
+  offset: 0, 0
+  index: -1
+unlock
+  rotate: false
+  xy: 771, 262
+  size: 88, 88
+  orig: 88, 88
+  offset: 0, 0
+  index: -1
+icon_arrow
+  rotate: false
+  xy: 365, 167
+  size: 32, 76
+  orig: 32, 76
+  offset: 0, 0
+  index: -1
+numBg
+  rotate: false
+  xy: 955, 455
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
