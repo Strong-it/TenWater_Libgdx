@@ -23,6 +23,8 @@ public class TenWaterGame extends Game {
 
 	public final int VIRTUAL_WORLD_WIDTH = 480;
 	public final int VIRTUAL_WORLD_HEIGHT = 640;
+	
+	public boolean debug = true;
 
 	@Override
 	public void create() {

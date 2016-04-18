@@ -48,13 +48,15 @@ public class ClassicGameScreen extends AbstractBaseScreen {
     
     private void initGameData() {
     	stage = new Stage(game.viewport, game.batch);
+    	stage.setDebugAll(game.debug);
         Gdx.input.setInputProcessor(stage);
         
         bgImg = new Image(AssetsManager.assetsManager.assetsBg.game_bgTxt);
         bgImg.setFillParent(true);
+        
         gridImg = new Image(AssetsManager.assetsManager.assetsBg.cellTxt);
         originX = game.VIRTUAL_WORLD_WIDTH - AssetsManager.assetsManager.assetsBg.cellTxt.getWidth() >> 1;
-        originY = (game.VIRTUAL_WORLD_HEIGHT - AssetsManager.assetsManager.assetsBg.cellTxt.getHeight() >> 1) ;
+        originY = (game.VIRTUAL_WORLD_HEIGHT - AssetsManager.assetsManager.assetsBg.cellTxt.getHeight() >> 1) + 20 ;
         gridImg.setPosition(originX, originY);
         
         backBtn = new ImageButton(new TextureRegionDrawable(AssetsManager.assetsManager.assetsBtn.backBtnTxt[0]), 

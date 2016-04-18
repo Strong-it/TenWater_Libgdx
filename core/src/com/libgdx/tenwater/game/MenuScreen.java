@@ -82,7 +82,7 @@ public class MenuScreen extends AbstractBaseScreen {
         });
         
         tabel = new Table();
-        tabel.debug();
+        tabel.setDebug(game.debug);  // 设置debug模式，这样会在Actor外面绘制不同颜色的线来区分
         tabel.row().padTop(150f);  // 第一个cell距离top的距离
         tabel.add(classicBtn).colspan(2).expand();
         tabel.row();
