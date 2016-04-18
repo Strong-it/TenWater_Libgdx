@@ -13,10 +13,9 @@ import com.badlogic.gdx.utils.Array;
 import com.libgdx.tenwater.utils.AssetsManager;
 
 public class WaterSprite {
-    private Image[] waterImg;
-    private Image waterExplodeImg;
+    private TextureRegion[] waterRegion;
+    private TextureRegion[] waterExplodeRegion;
     private ExplodeListener explodeListener;
-    private Group group;
     
     private final int WATER_STATE_NUM = 4;
     private final float EXPLODE_ANIMATION_TIME = 1.0f;
@@ -24,20 +23,15 @@ public class WaterSprite {
     private final float height = 50f;
     private int waterNum;
     
+    private Rectangle rectangle;  // 碰撞检测
+    
     public WaterSprite() {
         
         // TODO: 设置水滴大小 50 * 50
-        group = new Group();
-        waterImg = new Image[WATER_STATE_NUM];
-        for (int i = 0; i < waterImg.length; i++) {
-            waterImg[i] = new Image(AssetsManager.assetsManager.assetsWater.dropWaterTxt[i]);
-            group.addActor(waterImg[i]);
+    	waterRegion = new TextureRegion[WATER_STATE_NUM];
+        for (int i = 0; i < waterRegion.length; i++) {
+        	waterRegion[i] = AssetsManager.assetsManager.assetsWater.dropWaterTxt[i];
         }
-        
-        waterExplodeImg = new Image(AssetsManager.assetsManager.assetsWater.dropWaterTxt[0]);
-        waterExplodeImg.setVisible(false);
-        group.addActor(waterExplodeImg);
-        group.setSize(width, height);
         
         setWaterNum(0);
     }
@@ -46,12 +40,8 @@ public class WaterSprite {
         waterNum = num;
         
         for (int i = 0; i < WATER_STATE_NUM; i++) {
-            waterImg[i].clearActions();
-            waterImg[i].setVisible((i + 1) == waterNum);
             
             if (i+1 == waterNum) {
-                waterImg[i].setScale(0.8f);
-                waterImg[i].addAction(Actions.scaleTo(1.2f, 1.2f, 1f));
             }
         }
     }
@@ -80,15 +70,12 @@ public class WaterSprite {
     }
     
     public void exploadeEnd() {
-        waterExplodeImg.setVisible(false);
         explodeListener.onExplodeEnd(this);
     }
     
     public void setPosition(float x, float y) {
-        group.setPosition(x, y);
     }
     public void draw(Batch batch, float parentAlpha) {
-        group.draw(batch, parentAlpha);
     }
     
 }

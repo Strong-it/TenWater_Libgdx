@@ -14,6 +14,7 @@ public abstract class AbstractBaseScreen extends ScreenAdapter {
     
     private boolean keyHandled;   // 将所有Screen都需要处理的一些事情都放在 BaseScreen类中
                                   // 比如捕捉返回， menu菜单event
+    public AbstractBaseScreen() { }
     
     public AbstractBaseScreen(TenWaterGame game) {
         this.game = game;
@@ -58,5 +59,13 @@ public abstract class AbstractBaseScreen extends ScreenAdapter {
     
     protected void handledMenuPress() {
         Gdx.app.log(TAG, "press Menu");
+    }
+    
+    public void setTenWaterGame(TenWaterGame game) {
+    	this.game = game;
+    }
+    
+    public TenWaterGame geTenWaterGame() {
+    	return this.game;
     }
 }

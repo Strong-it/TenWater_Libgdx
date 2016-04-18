@@ -10,7 +10,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.libgdx.tenwater.TenWaterGame;
 import com.libgdx.tenwater.utils.AssetsManager;
 
-public class ClassicGameMenu extends AbstractBaseScreen {
+public class ClassicGameScreen extends AbstractBaseScreen {
 
     private final int ROW_NUM = 6;
     private final int COL_NUM = 6;
@@ -32,17 +32,30 @@ public class ClassicGameMenu extends AbstractBaseScreen {
     private Stage stage;
     private ImageButton backBtn, resetBtn;
     private Image[] testImage = new Image[TOTAL_NUM];
-    WaterSprite waterSprite;
+    private Image bgImg, gridImg;
     
-    public ClassicGameMenu(TenWaterGame game) {
+    public ClassicGameScreen() { }
+    
+    public ClassicGameScreen(TenWaterGame game) {
         super(game);
     }
 
     @Override
     public void show() {
         
-        stage = new Stage(game.viewport, game.batch);
+        initGameData();
+    }
+    
+    private void initGameData() {
+    	stage = new Stage(game.viewport, game.batch);
         Gdx.input.setInputProcessor(stage);
+        
+        bgImg = new Image(AssetsManager.assetsManager.assetsBg.game_bgTxt);
+        bgImg.setFillParent(true);
+        gridImg = new Image(AssetsManager.assetsManager.assetsBg.cellTxt);
+        originX = game.VIRTUAL_WORLD_WIDTH - AssetsManager.assetsManager.assetsBg.cellTxt.getWidth() >> 1;
+        originY = (game.VIRTUAL_WORLD_HEIGHT - AssetsManager.assetsManager.assetsBg.cellTxt.getHeight() >> 1) ;
+        gridImg.setPosition(originX, originY);
         
         backBtn = new ImageButton(new TextureRegionDrawable(AssetsManager.assetsManager.assetsBtn.backBtnTxt[0]), 
                 new TextureRegionDrawable(AssetsManager.assetsManager.assetsBtn.backBtnTxt[1]));
@@ -59,42 +72,27 @@ public class ClassicGameMenu extends AbstractBaseScreen {
        resetBtn = new ImageButton(new TextureRegionDrawable(AssetsManager.assetsManager.assetsBtn.resetBtnTxt));
        resetBtn.setPosition(game.VIRTUAL_WORLD_WIDTH - resetBtn.getWidth() - 20f, 15f);
        
+       TopGroup topGroupg = new TopGroup(game);
+       
+       stage.addActor(bgImg);
+       stage.addActor(gridImg);
        stage.addActor(backBtn);
        stage.addActor(resetBtn);
+       stage.addActor(topGroupg);
        
        for (int i = 0; i < testImage.length; i++) {
            testImage[i] = new Image(AssetsManager.assetsManager.assetsWater.dropWaterTxt[0]);
        }
        
-       waterSprite = new WaterSprite();
-       waterSprite.setPosition(100f, 100f);
-       
-       originX = game.VIRTUAL_WORLD_WIDTH - AssetsManager.assetsManager.assetsBg.cellTxt.getWidth() >> 1;
-       originY = game.VIRTUAL_WORLD_HEIGHT - AssetsManager.assetsManager.assetsBg.cellTxt.getHeight() >> 1;
-    }
-    
-    public void onClickGrid() {
-        
+      
     }
 
     @Override
     public void render(float delta) {
         super.render(delta);
         
-        game.batch.setProjectionMatrix(game.camera.combined);
-        game.batch.begin();
-        game.batch.draw(AssetsManager.assetsManager.assetsBg.game_bgTxt, 0, 0);
-        game.batch.draw(AssetsManager.assetsManager.assetsBtn.levelBtnTxt, game.VIRTUAL_WORLD_WIDTH >> 1, 
-                game.VIRTUAL_WORLD_HEIGHT - AssetsManager.assetsManager.assetsBtn.levelBtnTxt.getRegionHeight() - 20f);
-        game.batch.draw(AssetsManager.assetsManager.assetsBg.cellTxt, originX, originY);
-        game.batch.end();
-        
-        game.batch.begin();
-        waterSprite.draw(game.batch, 1.0f);
-        game.batch.end();
-        
-//        stage.act(Math.min(delta, 1/60f));
-//        stage.draw();
+        stage.act(Math.min(delta, 1/60f));
+        stage.draw();
         
         
     }

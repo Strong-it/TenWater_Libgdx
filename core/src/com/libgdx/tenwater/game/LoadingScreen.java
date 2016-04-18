@@ -31,7 +31,7 @@ public class LoadingScreen extends AbstractBaseScreen {
         super.render(delta);
         
         game.batch.setProjectionMatrix(game.camera.combined);
-        game. batch.begin();
+        game.batch.begin();
         game.batch.draw(backgroundImg, 0, 0);
         game.batch.end();
         

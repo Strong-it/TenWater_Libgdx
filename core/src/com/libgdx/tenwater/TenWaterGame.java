@@ -5,6 +5,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
@@ -31,14 +32,12 @@ public class TenWaterGame extends Game {
 		camera = new OrthographicCamera();
 		viewport = new FitViewport(VIRTUAL_WORLD_WIDTH, VIRTUAL_WORLD_HEIGHT,
 				camera);
-		camera.position.set(VIRTUAL_WORLD_WIDTH >> 1,
-				VIRTUAL_WORLD_HEIGHT >> 1, 0f);
-		camera.update();
+		viewport.apply(true);
 
 		assetManager = new AssetManager();
 
-		LoadingScreen menuScreen = new LoadingScreen(this);
-		setScreen(menuScreen);
+		LoadingScreen loadingScreen = new LoadingScreen(this);
+		setScreen(loadingScreen);
 	}
 
     @Override
@@ -66,6 +65,6 @@ public class TenWaterGame extends Game {
     
     @Override
     public void resize(int width, int height) {
-        viewport.update(width, height);
+        viewport.update(width, height, true);
     }
 }

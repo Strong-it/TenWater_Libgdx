@@ -21,6 +21,8 @@ public class MenuScreen extends AbstractBaseScreen {
     private Table tabel;
     private ImageButton classicBtn, shengjiBtn, helpBtn, musicBtn;
     
+    public MenuScreen() {}
+    
     public MenuScreen(TenWaterGame game) {
         super(game);
     }
@@ -45,7 +47,7 @@ public class MenuScreen extends AbstractBaseScreen {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 Gdx.app.log(TAG, "classic");
-                game.setScreen(new ClassicGameMenu(game));
+                game.setScreen(new ClassicGameScreen(game));
             }
             
         });

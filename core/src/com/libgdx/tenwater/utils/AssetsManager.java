@@ -5,6 +5,7 @@ import com.badlogic.gdx.assets.AssetDescriptor;
 import com.badlogic.gdx.assets.AssetErrorListener;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas.AtlasRegion;
 import com.badlogic.gdx.utils.Disposable;
@@ -18,11 +19,20 @@ public class AssetsManager implements Disposable, AssetErrorListener {
     public AssetsLevel assetsLevel;
     public AssetsBtn assetsBtn;
     public AssetsWater assetsWater;
+    public AssetsFont assetsfont;
     private AssetManager assetManager;
     
     private final int LEVEL_NUM = 11;
     
     private AssetsManager() { }
+    
+    public class AssetsFont {
+    	public final BitmapFont defaultFont;
+    	
+    	public AssetsFont() {
+    		defaultFont = new BitmapFont();
+    	}
+    }
     
     public void loadGameResources(AssetManager assetManager) {
         
@@ -63,6 +73,8 @@ public class AssetsManager implements Disposable, AssetErrorListener {
         
         atlas = assetManager.get(Resources.GameImage.water_path, TextureAtlas.class);
         assetsWater = new AssetsWater(atlas);
+        
+        assetsfont = new AssetsFont();
     }
     
     public class AssetsBg {
@@ -162,6 +174,7 @@ public class AssetsManager implements Disposable, AssetErrorListener {
 
     @Override
     public void dispose() {
-        
+        assetsfont.defaultFont.dispose();
+        assetManager.dispose();
     }
 }
