@@ -1,30 +1,31 @@
-package com.libgdx.tenwater.game;
+package com.libgdx.tenwater.actor;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.libgdx.tenwater.TenWaterGame;
 import com.libgdx.tenwater.utils.AssetsManager;
 
-public class TopGroup extends Group {
+public class TopGroup extends BaseGroup {
 
 	private static final String TAG = TopGroup.class.getSimpleName();
-	TenWaterGame game;
 	
 	//  top level 和 current level
 	Image levelImg;
 	Label topLevel, currentLevel;
 	
 	public TopGroup(TenWaterGame game) {
-		this.game = game;
+		super(game);
 		init();
 	}
 	
 	private void init() {
+		// 设置Group的大小
+		setSize(getGame().VIRTUAL_WORLD_WIDTH, getGame().VIRTUAL_WORLD_HEIGHT);
+		
 		levelImg = new Image(AssetsManager.assetsManager.assetsBtn.levelBtnTxt);
-		levelImg.setPosition(game.VIRTUAL_WORLD_WIDTH >> 1 - 30, 
-                game.VIRTUAL_WORLD_HEIGHT - AssetsManager.assetsManager.assetsBtn.levelBtnTxt.getRegionHeight() - 20f);
+		levelImg.setPosition(getGame().VIRTUAL_WORLD_WIDTH >> 1 - 30, 
+				getGame().VIRTUAL_WORLD_HEIGHT - AssetsManager.assetsManager.assetsBtn.levelBtnTxt.getRegionHeight() - 20f);
 //		设置levelImage为半透明
 //		levelImg.getColor().a = 0.5f;
 		
