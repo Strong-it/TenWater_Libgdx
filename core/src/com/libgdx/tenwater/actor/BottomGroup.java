@@ -1,5 +1,6 @@
 package com.libgdx.tenwater.actor;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
@@ -10,6 +11,7 @@ import com.libgdx.tenwater.utils.AssetsManager;
 
 public class BottomGroup extends BaseGroup{
 
+	private static final String TAG = BottomGroup.class.getSimpleName();
 	private ImageButton backBtn, resetBtn;
 	
 	public BottomGroup(TenWaterGame game) {
@@ -18,7 +20,7 @@ public class BottomGroup extends BaseGroup{
 	}
 
 	private void init() {
-		setSize(getGame().VIRTUAL_WORLD_WIDTH, getGame().VIRTUAL_WORLD_HEIGHT);
+		
 		
 		backBtn = new ImageButton(new TextureRegionDrawable(AssetsManager.assetsManager.assetsBtn.backBtnTxt[0]), 
                 new TextureRegionDrawable(AssetsManager.assetsManager.assetsBtn.backBtnTxt[1]));
@@ -31,6 +33,10 @@ public class BottomGroup extends BaseGroup{
             }
             
         });
+        
+       // …Ë÷√ButtomGroupµƒsize
+       setSize(getGame().VIRTUAL_WORLD_WIDTH, backBtn.getHeight());
+       Gdx.app.log(TAG, "backBtn height="+ backBtn.getHeight() + "  PrefHeight="+backBtn.getPrefHeight());
         
        resetBtn = new ImageButton(new TextureRegionDrawable(AssetsManager.assetsManager.assetsBtn.resetBtnTxt));
        resetBtn.setX(getGame().VIRTUAL_WORLD_WIDTH - resetBtn.getWidth() - 20f);
