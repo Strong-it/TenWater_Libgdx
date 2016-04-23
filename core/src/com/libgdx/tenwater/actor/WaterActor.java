@@ -1,13 +1,12 @@
 package com.libgdx.tenwater.actor;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas.AtlasRegion;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.math.Rectangle;
-import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.libgdx.tenwater.TenWaterGame;
 import com.libgdx.tenwater.utils.AssetsManager;
 
@@ -22,10 +21,6 @@ public class WaterActor extends Actor {
     private float frameDuration = 0.05f;
     private int keyFrameIndex;
     
-    TenWaterGame game;
-    Rectangle rectangle;
-    Vector3 touchedPostion;
-    
     public WaterActor() { }
     
     public WaterActor(int keyFrameIndex, TenWaterGame game) {
@@ -39,9 +34,7 @@ public class WaterActor extends Actor {
         stateTime = 0;
         initAnimation();
         
-        this.game = game;
-        rectangle = new Rectangle(getX(), getY(), getWidth(), getHeight());
-        touchedPostion = new Vector3();
+        addListener(new EventListenerImpl());
     }
     
     public TextureRegion getRegion() {
@@ -61,8 +54,22 @@ public class WaterActor extends Actor {
         animation = new Animation(frameDuration, AssetsManager.assetsManager.assetsWater.explodeWaterTxt);
     }
     
+    public Animation getAnimation() {
+        return this.animation;
+    }
+    
     public void setPlayAnimation(boolean isPlayAnimation) {
         this.isPlayAnimation = isPlayAnimation;
+    }
+    
+    public boolean checkAnimationFinished() {
+        if (animation.isAnimationFinished(stateTime) && !isAnimationFinished) {
+            isAnimationFinished = true;
+            setVisible(false);
+            return isAnimationFinished;
+        }
+        
+        return isAnimationFinished;
     }
     
     @Override
@@ -89,16 +96,15 @@ public class WaterActor extends Actor {
         if (isPlayAnimation) {
             stateTime += delta;
             region = animation.getKeyFrame(stateTime);
-            if (animation.isAnimationFinished(stateTime) && !isAnimationFinished) {
-                isAnimationFinished = true;
-                setVisible(false);
-            }
+            checkAnimationFinished();
         } else {
             if (keyFrameIndex < 4) {
                 region = waterDrop[keyFrameIndex];
             }
         }
-            
+          
+        /**
+         * 用Listener来监听事件
         if (Gdx.input.justTouched()) {
              rectangle.set(getX(), getY(), getWidth(), getHeight());
              touchedPostion.set(Gdx.input.getX(), Gdx.input.getY(), 0);
@@ -110,7 +116,19 @@ public class WaterActor extends Actor {
                 }
             }
         }
+        */
     }
 
-    
+    private class EventListenerImpl extends ClickListener {
+
+        @Override
+        public void clicked(InputEvent event, float x, float y) {
+            keyFrameIndex++;
+            if (keyFrameIndex == 4) {
+                setPlayAnimation(true);
+            }
+            super.clicked(event, x, y);
+        }
+        
+    }
 }

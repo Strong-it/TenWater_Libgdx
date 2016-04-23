@@ -2,6 +2,7 @@ package com.libgdx.tenwater.actor;
 
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.libgdx.tenwater.TenWaterGame;
+import com.libgdx.tenwater.actor.SmallWaterActor.SmallWaterMoveDirection;
 import com.libgdx.tenwater.actor.base.BaseGroup;
 import com.libgdx.tenwater.utils.AssetsManager;
 
@@ -13,6 +14,7 @@ public class MiddleGroup extends BaseGroup {
 	
 	Image gridImg;
 	WaterActor waterActor;
+	boolean isS = false;
 	
 	public MiddleGroup(TenWaterGame game) {
 		super(game);
@@ -50,4 +52,55 @@ public class MiddleGroup extends BaseGroup {
 	public Image getGridImage() {
 		return gridImg;
 	}
+
+    @Override
+    public void act(float delta) {
+        super.act(delta);
+        
+        if (waterActor.checkAnimationFinished() && !isS) {
+            creteSmallWaterActor();
+        }
+    }
+
+    private void creteSmallWaterActor() {
+        if (waterActor.getX() - waterActor.getWidth() / 2 > gridImg.getX()) {
+            SmallWaterActor smallWaterActor = new SmallWaterActor(this, SmallWaterMoveDirection.LEFT);
+            setSmallWaterActorProperty(smallWaterActor);
+            System.out.println("L");
+        }
+        
+        if (waterActor.getX() + waterActor.getWidth() * 1.5f < gridImg.getX() + gridImg.getWidth()) {
+            SmallWaterActor smallWaterActor2 = new SmallWaterActor(this, SmallWaterMoveDirection.RIGHT);
+            setSmallWaterActorProperty(smallWaterActor2);
+            System.out.println("R");
+        }
+        
+        if (waterActor.getY() - waterActor.getHeight() / 2 > gridImg.getY()) {
+            SmallWaterActor smallWaterActor3 = new SmallWaterActor(this, SmallWaterMoveDirection.DOWN);
+            setSmallWaterActorProperty(smallWaterActor3);
+            System.out.println("D");
+        }
+        
+        if (waterActor.getY() + waterActor.getHeight() * 1.5f < gridImg.getY() + gridImg.getHeight()) {
+            SmallWaterActor smallWaterActor4 = new SmallWaterActor(this, SmallWaterMoveDirection.UP);
+            setSmallWaterActorProperty(smallWaterActor4);
+            System.out.println("U");
+        }
+        
+        isS = true;
+    }
+    
+    public void setSmallWaterActorProperty(SmallWaterActor smallWaterActor) {
+        float x = waterActor.getX() + waterActor.getWidth() / 2 - smallWaterActor.getWidth() / 2 + 15;
+        float y = waterActor.getY() + waterActor.getHeight() / 2 - smallWaterActor.getHeight() / 2;
+        smallWaterActor.setSmallWaterActorPostion(x, y);
+        if (smallWaterActor.moveDirection == SmallWaterMoveDirection.UP || 
+                smallWaterActor.moveDirection == SmallWaterMoveDirection.DOWN) {
+            smallWaterActor.setRotation(90);
+        }
+        
+        smallWaterActor.setExplodedState(true);
+        addActor(smallWaterActor);
+    }
+	
 }
