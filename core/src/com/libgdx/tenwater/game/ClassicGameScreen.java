@@ -52,15 +52,16 @@ public class ClassicGameScreen extends AbstractBaseScreen {
        
        // 游戏的中间部分，包括网格，水滴的
        middleGroup = new MiddleGroup(game);
-       float middleGroupX = game.VIRTUAL_WORLD_WIDTH / 2 - AssetsManager.assetsManager.assetsBg.cellTxt.getWidth() / 2;
-       float middleGroupY = (game.VIRTUAL_WORLD_HEIGHT - AssetsManager.assetsManager.assetsBg.cellTxt.getHeight() >> 1) + 20;
-       middleGroup.setPosition(middleGroupX, middleGroupY);
-       Gdx.app.log(TAG, "gridX=" + middleGroup.getGridImage().getX());
+//       为了方便获取坐标，将坐标放入MiddleGroup里面
+//       float middleGroupX = game.VIRTUAL_WORLD_WIDTH / 2 - AssetsManager.assetsManager.assetsBg.cellTxt.getWidth() / 2;
+//       float middleGroupY = (game.VIRTUAL_WORLD_HEIGHT - AssetsManager.assetsManager.assetsBg.cellTxt.getHeight() >> 1) + 20;
+//       middleGroup.setPosition(middleGroupX, middleGroupY);
+//       Gdx.app.log(TAG, "gridImage X=" + middleGroup.getGridImage().getX() + "  gridY=" + middleGroup.getY());
        
        stage.addActor(bgImg);
+       stage.addActor(middleGroup);
        stage.addActor(topGroup);
        stage.addActor(bottomGroup);
-       stage.addActor(middleGroup);
     }
 
     @Override

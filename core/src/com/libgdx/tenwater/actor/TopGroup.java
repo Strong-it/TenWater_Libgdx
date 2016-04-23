@@ -3,6 +3,7 @@ package com.libgdx.tenwater.actor;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.libgdx.tenwater.TenWaterGame;
+import com.libgdx.tenwater.actor.base.BaseGroup;
 import com.libgdx.tenwater.utils.AssetsManager;
 
 public class TopGroup extends BaseGroup {

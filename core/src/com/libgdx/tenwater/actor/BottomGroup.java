@@ -6,6 +6,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.libgdx.tenwater.TenWaterGame;
+import com.libgdx.tenwater.actor.base.BaseGroup;
 import com.libgdx.tenwater.game.MenuScreen;
 import com.libgdx.tenwater.utils.AssetsManager;
 

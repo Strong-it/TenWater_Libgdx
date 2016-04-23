@@ -150,91 +150,91 @@ sback
   orig: 92, 70
   offset: 0, 0
   index: -1
-drop
+drop1
   rotate: false
   xy: 565, 37
   size: 48, 48
   orig: 48, 48
   offset: 0, 0
-  index: 1
-drop
+  index: -1
+drop2
   rotate: false
   xy: 659, 109
   size: 48, 48
   orig: 48, 48
   offset: 0, 0
-  index: 2
-drop
+  index: -1
+drop3
   rotate: false
   xy: 753, 181
   size: 48, 48
   orig: 48, 48
   offset: 0, 0
-  index: 3
-drop
+  index: -1
+drop4
   rotate: false
   xy: 803, 181
   size: 48, 48
   orig: 48, 48
   offset: 0, 0
-  index: 4
-explode
+  index: -1
+explode1
   rotate: false
   xy: 853, 181
   size: 48, 48
   orig: 48, 48
   offset: 0, 0
-  index: 1
-explode
+  index: -1
+explode2
   rotate: false
   xy: 903, 181
   size: 48, 48
   orig: 48, 48
   offset: 0, 0
-  index: 2
-explode
+  index: -1
+explode3
   rotate: false
   xy: 953, 181
   size: 48, 48
   orig: 48, 48
   offset: 0, 0
-  index: 3
-explode
+  index: -1
+explode4
   rotate: false
   xy: 615, 37
   size: 48, 48
   orig: 48, 48
   offset: 0, 0
-  index: 4
-wall_drop
+  index: -1
+walldrop1
   rotate: false
   xy: 709, 109
   size: 48, 48
   orig: 48, 48
   offset: 0, 0
-  index: 1
-wall_drop
+  index: -1
+walldrop2
   rotate: false
   xy: 665, 59
   size: 48, 48
   orig: 48, 48
   offset: 0, 0
-  index: 2
-wall_drop
+  index: -1
+walldrop3
   rotate: false
   xy: 715, 59
   size: 48, 48
   orig: 48, 48
   offset: 0, 0
-  index: 3
-wall_drop
+  index: -1
+walldrop4
   rotate: false
   xy: 759, 131
   size: 48, 48
   orig: 48, 48
   offset: 0, 0
-  index: 4
-drop
+  index: -1
+speeddrop
   rotate: false
   xy: 1, 1
   size: 23, 12

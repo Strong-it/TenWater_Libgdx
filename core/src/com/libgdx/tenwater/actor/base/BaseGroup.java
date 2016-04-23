@@ -1,4 +1,4 @@
-package com.libgdx.tenwater.actor;
+package com.libgdx.tenwater.actor.base;
 
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.libgdx.tenwater.TenWaterGame;

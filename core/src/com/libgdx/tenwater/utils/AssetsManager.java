@@ -59,7 +59,7 @@ public class AssetsManager implements Disposable, AssetErrorListener {
         
         assetManager.load(Resources.GameImage.button_path, TextureAtlas.class);
         assetManager.load(Resources.GameImage.water_path, TextureAtlas.class);
-//        assetManager.finishLoading();  此处不应该有此函数，否则会block 线程
+//        assetManager.finishLoading();  //此处不应该有此函数，否则加载的Screen不会显示
         
         
     }
@@ -143,6 +143,7 @@ public class AssetsManager implements Disposable, AssetErrorListener {
     }
     
     public class AssetsWater {
+        public final AtlasRegion speedWaterTxt;
         public final AtlasRegion[] dropWaterTxt = new AtlasRegion[5];
         public final AtlasRegion[] explodeWaterTxt = new AtlasRegion[4];
         public final AtlasRegion[] containerWaterTxt = new AtlasRegion[20];
@@ -150,12 +151,13 @@ public class AssetsManager implements Disposable, AssetErrorListener {
         public final AtlasRegion sbackTxt;
         
         public AssetsWater(TextureAtlas atlas) {
+            
             for (int i = 0; i < dropWaterTxt.length; i++) {
-                dropWaterTxt[i] = atlas.findRegion("drop");
+                dropWaterTxt[i] = atlas.findRegion("drop" + (i+1));
             }
             
             for (int i = 0; i < explodeWaterTxt.length; i++) {
-                explodeWaterTxt[i] = atlas.findRegion("explode");
+                explodeWaterTxt[i] = atlas.findRegion("explode" + (i+1));
             }
             
             for (int i = 0; i < containerWaterTxt.length; i++) {
@@ -163,10 +165,11 @@ public class AssetsManager implements Disposable, AssetErrorListener {
             }
             
             for (int i = 0; i < wallDropWaterTxt.length; i++) {
-                wallDropWaterTxt[i] = atlas.findRegion("wall_drop");
+                wallDropWaterTxt[i] = atlas.findRegion("walldrop" + (i+1));
             }
             
             sbackTxt = atlas.findRegion("sback");
+            speedWaterTxt = atlas.findRegion("speeddrop");
         }
     }
     
