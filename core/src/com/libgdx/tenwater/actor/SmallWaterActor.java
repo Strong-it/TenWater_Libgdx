@@ -36,6 +36,8 @@ public class SmallWaterActor extends Actor {
     public void act(float delta) {
         super.act(delta);
         
+        checkState();
+        
         if(isExploded) {
             switch (moveDirection) {
             case UP:
@@ -58,9 +60,7 @@ public class SmallWaterActor extends Actor {
     public void draw(Batch batch, float parentAlpha) {
         super.draw(batch, parentAlpha);
         
-        if (region == null && !isVisible()) {
-            return;
-        }
+        checkState();
         
         batch.draw(region, getX(), getY(), 
                 getOriginX(), getOriginY(), 
@@ -100,6 +100,12 @@ public class SmallWaterActor extends Actor {
     
     public void setExplodedState(boolean isExploded) {
         this.isExploded = isExploded;
+    }
+    
+    private void checkState() {
+        if (region == null && !isVisible()) {
+            return;
+        }
     }
     
     public enum SmallWaterMoveDirection {

@@ -1,10 +1,12 @@
 package com.libgdx.tenwater.actor;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.libgdx.tenwater.TenWaterGame;
 import com.libgdx.tenwater.actor.SmallWaterActor.SmallWaterMoveDirection;
 import com.libgdx.tenwater.actor.base.BaseGroup;
 import com.libgdx.tenwater.utils.AssetsManager;
+import com.libgdx.tenwater.utils.XMLParser;
 
 public class MiddleGroup extends BaseGroup {
 
@@ -12,9 +14,12 @@ public class MiddleGroup extends BaseGroup {
 	private static final int WATER_ROW_NUM = 6;
 	private static final int WATER_COL_NUM = 6;
 	
+	// 当前关卡
+	private int curLevel = 1;
+	private int keyFrameIndex = 0;
+	
 	Image gridImg;
-	WaterActor waterActor;
-	boolean isS = false;
+	WaterActor[][] waterActor = new WaterActor[WATER_ROW_NUM][WATER_COL_NUM];
 	
 	public MiddleGroup(TenWaterGame game) {
 		super(game);
@@ -22,6 +27,8 @@ public class MiddleGroup extends BaseGroup {
 	}
 
 	public void init() {
+	    this.clear();
+	    
 	    setSize(getGame().VIRTUAL_WORLD_WIDTH, getGame().VIRTUAL_WORLD_HEIGHT);
 	    
 		gridImg = new Image(AssetsManager.assetsManager.assetsBg.cellTxt);
@@ -30,20 +37,40 @@ public class MiddleGroup extends BaseGroup {
 	    gridImg.setPosition(gridImgX, gridImgY);
 		addActor(gridImg);
 		
+		XMLParser xmlParser = new XMLParser();
+		xmlParser.initData(Gdx.files.internal("classic/classic.xml"));
 		
-		waterActor = new WaterActor(1, getGame());
-		waterActor.setPosition(gridImg.getX(), gridImg.getY());
-		addActor(waterActor);
+		// 创建所有的水滴
+		for (int row = 0; row < WATER_ROW_NUM; row++) {
+            for (int col = 0; col < WATER_COL_NUM; col++) {
+                keyFrameIndex = xmlParser.levelData[curLevel].getZappers()[row * 6 + col];
+                if (keyFrameIndex == 4) {
+                    keyFrameIndex = 3;
+                }
+                waterActor[row][col] = new WaterActor(keyFrameIndex);
+
+                addActor(waterActor[row][col]);
+            }
+        }
 		
 		// 水珠大小
-		float waterWidth = waterActor.getWidth();
-		float waterHeight = waterActor.getHeight();
+		float waterWidth = waterActor[0][0].getWidth();
+		float waterHeight = waterActor[0][0].getHeight();
 		
 		// 计算水珠之间的间隙大小
-        float horizontalInterval = (gridImg.getWidth() - waterActor.getWidth() * WATER_ROW_NUM) / (WATER_ROW_NUM + 1);
-        float verticalInterval = (gridImg.getHeight() - waterActor.getHeight() * WATER_COL_NUM) / (WATER_COL_NUM + 1);
-        waterActor.setX(gridImgX + horizontalInterval);
-        waterActor.setY(gridImgY + verticalInterval);
+        float horizontalInterval = (gridImg.getWidth() - waterWidth * WATER_ROW_NUM) / (WATER_ROW_NUM + 1);
+        float verticalInterval = (gridImg.getHeight() - waterHeight * WATER_COL_NUM) / (WATER_COL_NUM + 1);
+        
+        // 均匀的排列水珠
+        float waterY = 0;
+        for (int row = 0; row < WATER_ROW_NUM; row++) {
+            waterY = 0.5f + gridImg.getY() + gridImg.getHeight() - (verticalInterval + waterHeight) * (row + 1);
+            for (int col = 0; col < WATER_COL_NUM; col++) {
+                waterActor[row][col].setX(0.5f + gridImgX + horizontalInterval + (waterWidth + horizontalInterval) * col);
+                waterActor[row][col].setY(waterY);
+            }
+        }
+
 	}
 	
 	/**
@@ -52,16 +79,14 @@ public class MiddleGroup extends BaseGroup {
 	public Image getGridImage() {
 		return gridImg;
 	}
-
+	
     @Override
     public void act(float delta) {
         super.act(delta);
         
-        if (waterActor.checkAnimationFinished() && !isS) {
-            creteSmallWaterActor();
-        }
     }
 
+    /**
     private void creteSmallWaterActor() {
         if (waterActor.getX() - waterActor.getWidth() / 2 > gridImg.getX()) {
             SmallWaterActor smallWaterActor = new SmallWaterActor(this, SmallWaterMoveDirection.LEFT);
@@ -87,7 +112,6 @@ public class MiddleGroup extends BaseGroup {
             System.out.println("U");
         }
         
-        isS = true;
     }
     
     public void setSmallWaterActorProperty(SmallWaterActor smallWaterActor) {
@@ -102,5 +126,5 @@ public class MiddleGroup extends BaseGroup {
         smallWaterActor.setExplodedState(true);
         addActor(smallWaterActor);
     }
-	
+	*/
 }

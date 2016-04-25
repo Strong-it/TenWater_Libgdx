@@ -7,7 +7,6 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
-import com.libgdx.tenwater.TenWaterGame;
 import com.libgdx.tenwater.utils.AssetsManager;
 
 public class WaterActor extends Actor {
@@ -21,9 +20,11 @@ public class WaterActor extends Actor {
     private float frameDuration = 0.05f;
     private int keyFrameIndex;
     
-    public WaterActor() { }
+    public WaterActor() { 
+        this(0);
+    }
     
-    public WaterActor(int keyFrameIndex, TenWaterGame game) {
+    public WaterActor(int keyFrameIndex) {
         this.keyFrameIndex = keyFrameIndex;
         this.region = waterDrop[keyFrameIndex];
         
@@ -39,6 +40,10 @@ public class WaterActor extends Actor {
     
     public TextureRegion getRegion() {
         return region;
+    }
+    
+    public void setKeyFrameIndex(int keyFrameIndex) {
+        this.keyFrameIndex = keyFrameIndex;
     }
     
     public void setRegion(TextureRegion region) {
@@ -76,9 +81,7 @@ public class WaterActor extends Actor {
     public void draw(Batch batch, float parentAlpha) {
         super.draw(batch, parentAlpha);
         
-        if (region == null || !isVisible()) {
-            return;
-        }
+        checkState();
         
         getColor().a *= parentAlpha;
         
@@ -93,6 +96,8 @@ public class WaterActor extends Actor {
     public void act(float delta) {
         super.act(delta);
         
+        checkState();
+        
         if (isPlayAnimation) {
             stateTime += delta;
             region = animation.getKeyFrame(stateTime);
@@ -102,23 +107,14 @@ public class WaterActor extends Actor {
                 region = waterDrop[keyFrameIndex];
             }
         }
-          
-        /**
-         * 用Listener来监听事件
-        if (Gdx.input.justTouched()) {
-             rectangle.set(getX(), getY(), getWidth(), getHeight());
-             touchedPostion.set(Gdx.input.getX(), Gdx.input.getY(), 0);
-             touchedPostion = game.camera.unproject(touchedPostion);
-             if (rectangle.contains(touchedPostion.x, touchedPostion.y)) {
-                keyFrameIndex++;
-                if (keyFrameIndex == 4) {
-                    setPlayAnimation(true);
-                }
-            }
-        }
-        */
     }
 
+    private void checkState() {
+        if (region == null && !isVisible()) {
+            return;
+        }
+    }
+    
     private class EventListenerImpl extends ClickListener {
 
         @Override
