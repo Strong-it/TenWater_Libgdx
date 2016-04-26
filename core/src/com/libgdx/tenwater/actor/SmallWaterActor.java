@@ -4,27 +4,29 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.libgdx.tenwater.utils.AssetsManager;
 
 public class SmallWaterActor extends Actor {
 
     SmallWaterMoveDirection moveDirection;
-    MiddleGroup group;
     private TextureRegion region;
     private Vector2 temPostion;
+    private Image boundGridImg;
     private float moveSpeed = 100f;
     private boolean isExploded = false;
 
     public SmallWaterActor() {
     }
 
-    SmallWaterActor(MiddleGroup group, SmallWaterMoveDirection moveDirection) {
-        this.group = group;
+    SmallWaterActor(Image boundImg, SmallWaterMoveDirection moveDirection) {
+        this.boundGridImg = boundImg;
         region = AssetsManager.assetsManager.assetsWater.speedWaterTxt;
         this.moveDirection = moveDirection;
 
         setSize(region.getRegionWidth(), region.getRegionHeight());
         temPostion = new Vector2(getX(), getY());
+        
     }
 
     public void setSmallWaterActorPostion(float x, float y) {
@@ -90,10 +92,10 @@ public class SmallWaterActor extends Actor {
     }
     
     private void checkBounds() {
-        if (getX() < group.getGridImage().getX() ||
-            getX() + getWidth() > group.getGridImage().getX() + group.getGridImage().getWidth() ||
-            getY() < group.getGridImage().getY() ||
-            getY() + getHeight() > group.getGridImage().getY() + group.getGridImage().getHeight()) {
+        if (getX() < boundGridImg.getX() ||
+            getX() + getWidth() > boundGridImg.getX() + boundGridImg.getWidth() ||
+            getY() < boundGridImg.getY() ||
+            getY() + getHeight() > boundGridImg.getY() + boundGridImg.getHeight()) {
             setVisible(false);
         }
     }

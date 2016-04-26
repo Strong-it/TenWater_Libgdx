@@ -15,7 +15,7 @@ public class MiddleGroup extends BaseGroup {
 	private static final int WATER_COL_NUM = 6;
 	
 	// µ±Ç°¹Ø¿¨
-	private int curLevel = 1;
+	private int curLevel = 0;
 	private int keyFrameIndex = 0;
 	
 	Image gridImg;
@@ -44,10 +44,9 @@ public class MiddleGroup extends BaseGroup {
 		for (int row = 0; row < WATER_ROW_NUM; row++) {
             for (int col = 0; col < WATER_COL_NUM; col++) {
                 keyFrameIndex = xmlParser.levelData[curLevel].getZappers()[row * 6 + col];
-                if (keyFrameIndex == 4) {
-                    keyFrameIndex = 3;
-                }
-                waterActor[row][col] = new WaterActor(keyFrameIndex);
+                keyFrameIndex -= 1;
+                waterActor[row][col] = new WaterActor(this);
+                waterActor[row][col].setKeyFrameIndex(keyFrameIndex);
 
                 addActor(waterActor[row][col]);
             }

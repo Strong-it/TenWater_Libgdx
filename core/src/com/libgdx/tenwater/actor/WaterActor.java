@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.libgdx.tenwater.actor.SmallWaterActor.SmallWaterMoveDirection;
 import com.libgdx.tenwater.utils.AssetsManager;
 
 public class WaterActor extends Actor {
@@ -19,14 +20,16 @@ public class WaterActor extends Actor {
     private float stateTime;
     private float frameDuration = 0.05f;
     private int keyFrameIndex;
+    private MiddleGroup group;
     
-    public WaterActor() { 
-        this(0);
+    public WaterActor(MiddleGroup group) { 
+        this(0, group);
     }
     
-    public WaterActor(int keyFrameIndex) {
+    public WaterActor(int keyFrameIndex, MiddleGroup group) {
         this.keyFrameIndex = keyFrameIndex;
         this.region = waterDrop[keyFrameIndex];
+        this.group = group;
         
         setSize(this.region.getRegionWidth(), this.region.getRegionHeight());
         
@@ -43,7 +46,13 @@ public class WaterActor extends Actor {
     }
     
     public void setKeyFrameIndex(int keyFrameIndex) {
+        if (keyFrameIndex < 0) {
+            System.out.println("keyindex=" + keyFrameIndex);
+            setVisible(false);
+            return;
+        }
         this.keyFrameIndex = keyFrameIndex;
+        setRegion(waterDrop[keyFrameIndex]);
     }
     
     public void setRegion(TextureRegion region) {
@@ -71,6 +80,7 @@ public class WaterActor extends Actor {
         if (animation.isAnimationFinished(stateTime) && !isAnimationFinished) {
             isAnimationFinished = true;
             setVisible(false);
+            createSmallWaterAfterExplode();
             return isAnimationFinished;
         }
         
@@ -113,6 +123,45 @@ public class WaterActor extends Actor {
         if (region == null && !isVisible()) {
             return;
         }
+    }
+    
+    private void createSmallWaterAfterExplode() {
+        if (getX() - getWidth() / 2 > group.getGridImage().getWidth()) {
+            SmallWaterActor smallWaterActor = new SmallWaterActor(group.getGridImage(), SmallWaterMoveDirection.LEFT);
+            setSmallWaterActorProperty(smallWaterActor);
+            System.out.println("L");
+        }
+        
+        if (getX() + getWidth() * 1.5f < group.getGridImage().getX() + group.getGridImage().getWidth()) {
+            SmallWaterActor smallWaterActor2 = new SmallWaterActor(group.getGridImage(), SmallWaterMoveDirection.RIGHT);
+            setSmallWaterActorProperty(smallWaterActor2);
+            System.out.println("R");
+        }
+        
+        if (getY() - getHeight() / 2 > group.getGridImage().getY()) {
+            SmallWaterActor smallWaterActor3 = new SmallWaterActor(group.getGridImage(), SmallWaterMoveDirection.DOWN);
+            setSmallWaterActorProperty(smallWaterActor3);
+            System.out.println("D");
+        }
+        
+        if (getY() + getHeight() * 1.5f < group.getGridImage().getY() + group.getGridImage().getHeight()) {
+            SmallWaterActor smallWaterActor4 = new SmallWaterActor(group.getGridImage(), SmallWaterMoveDirection.UP);
+            setSmallWaterActorProperty(smallWaterActor4);
+            System.out.println("U");
+        }
+    }
+    
+    public void setSmallWaterActorProperty(SmallWaterActor smallWaterActor) {
+        float x = getX() + getWidth() / 2 - smallWaterActor.getWidth() / 2 + 15;
+        float y = getY() +getHeight() / 2 - smallWaterActor.getHeight() / 2;
+        smallWaterActor.setSmallWaterActorPostion(x, y);
+        if (smallWaterActor.moveDirection == SmallWaterMoveDirection.UP || 
+                smallWaterActor.moveDirection == SmallWaterMoveDirection.DOWN) {
+            smallWaterActor.setRotation(90);
+        }
+        
+        smallWaterActor.setExplodedState(true);
+        group.addActor(smallWaterActor);
     }
     
     private class EventListenerImpl extends ClickListener {
