@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.utils.Align;
 import com.libgdx.tenwater.actor.SmallWaterActor.SmallWaterMoveDirection;
 import com.libgdx.tenwater.utils.AssetsManager;
 
@@ -47,7 +48,6 @@ public class WaterActor extends Actor {
     
     public void setKeyFrameIndex(int keyFrameIndex) {
         if (keyFrameIndex < 0) {
-            System.out.println("keyindex=" + keyFrameIndex);
             setVisible(false);
             return;
         }
@@ -120,41 +120,40 @@ public class WaterActor extends Actor {
     }
 
     private void checkState() {
-        if (region == null && !isVisible()) {
+        if (region == null || !isVisible()) {
             return;
         }
     }
     
     private void createSmallWaterAfterExplode() {
-        if (getX() - getWidth() / 2 > group.getGridImage().getWidth()) {
+        if (getX() - getWidth() / 2.0f > group.getGridImage().getX()) {
             SmallWaterActor smallWaterActor = new SmallWaterActor(group.getGridImage(), SmallWaterMoveDirection.LEFT);
             setSmallWaterActorProperty(smallWaterActor);
             System.out.println("L");
         }
         
         if (getX() + getWidth() * 1.5f < group.getGridImage().getX() + group.getGridImage().getWidth()) {
-            SmallWaterActor smallWaterActor2 = new SmallWaterActor(group.getGridImage(), SmallWaterMoveDirection.RIGHT);
-            setSmallWaterActorProperty(smallWaterActor2);
+            SmallWaterActor smallWaterActor = new SmallWaterActor(group.getGridImage(), SmallWaterMoveDirection.RIGHT);
+            setSmallWaterActorProperty(smallWaterActor);
             System.out.println("R");
         }
         
-        if (getY() - getHeight() / 2 > group.getGridImage().getY()) {
-            SmallWaterActor smallWaterActor3 = new SmallWaterActor(group.getGridImage(), SmallWaterMoveDirection.DOWN);
-            setSmallWaterActorProperty(smallWaterActor3);
-            System.out.println("D");
+        if (getY() - getHeight() / 2.0f > group.getGridImage().getY()) {
+            SmallWaterActor smallWaterActor = new SmallWaterActor(group.getGridImage(), SmallWaterMoveDirection.DOWN);
+            setSmallWaterActorProperty(smallWaterActor);
         }
         
         if (getY() + getHeight() * 1.5f < group.getGridImage().getY() + group.getGridImage().getHeight()) {
-            SmallWaterActor smallWaterActor4 = new SmallWaterActor(group.getGridImage(), SmallWaterMoveDirection.UP);
-            setSmallWaterActorProperty(smallWaterActor4);
-            System.out.println("U");
+            SmallWaterActor smallWaterActor = new SmallWaterActor(group.getGridImage(), SmallWaterMoveDirection.UP);
+            setSmallWaterActorProperty(smallWaterActor);
         }
     }
     
     public void setSmallWaterActorProperty(SmallWaterActor smallWaterActor) {
-        float x = getX() + getWidth() / 2 - smallWaterActor.getWidth() / 2 + 15;
+        float x = getX() + getWidth() / 2 - smallWaterActor.getWidth() / 2;
         float y = getY() +getHeight() / 2 - smallWaterActor.getHeight() / 2;
         smallWaterActor.setSmallWaterActorPostion(x, y);
+        smallWaterActor.setOrigin(Align.center);
         if (smallWaterActor.moveDirection == SmallWaterMoveDirection.UP || 
                 smallWaterActor.moveDirection == SmallWaterMoveDirection.DOWN) {
             smallWaterActor.setRotation(90);
@@ -164,14 +163,18 @@ public class WaterActor extends Actor {
         group.addActor(smallWaterActor);
     }
     
+    public void addKeyFrameIndex() {
+        keyFrameIndex++;
+        if (keyFrameIndex == 4) {
+            setPlayAnimation(true);
+        }
+    }
+    
     private class EventListenerImpl extends ClickListener {
 
         @Override
         public void clicked(InputEvent event, float x, float y) {
-            keyFrameIndex++;
-            if (keyFrameIndex == 4) {
-                setPlayAnimation(true);
-            }
+            addKeyFrameIndex();
             super.clicked(event, x, y);
         }
         

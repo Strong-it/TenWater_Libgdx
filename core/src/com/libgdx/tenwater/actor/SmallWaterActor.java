@@ -16,8 +16,7 @@ public class SmallWaterActor extends Actor {
     private float moveSpeed = 100f;
     private boolean isExploded = false;
 
-    public SmallWaterActor() {
-    }
+    public SmallWaterActor() { }
 
     SmallWaterActor(Image boundImg, SmallWaterMoveDirection moveDirection) {
         this.boundGridImg = boundImg;
@@ -26,7 +25,6 @@ public class SmallWaterActor extends Actor {
 
         setSize(region.getRegionWidth(), region.getRegionHeight());
         temPostion = new Vector2(getX(), getY());
-        
     }
 
     public void setSmallWaterActorPostion(float x, float y) {
@@ -47,13 +45,17 @@ public class SmallWaterActor extends Actor {
                 break;
             case DOWN:
                 moveDown(delta);
+                break;
             case LEFT:
                 moveLeft(delta);
+                break;
             case RIGHT:
                 moveRight(delta);
+                break;
             default:
                 break;
             }
+            
             checkBounds();
         }
     }
@@ -92,12 +94,13 @@ public class SmallWaterActor extends Actor {
     }
     
     private void checkBounds() {
-        if (getX() < boundGridImg.getX() ||
-            getX() + getWidth() > boundGridImg.getX() + boundGridImg.getWidth() ||
-            getY() < boundGridImg.getY() ||
-            getY() + getHeight() > boundGridImg.getY() + boundGridImg.getHeight()) {
-            setVisible(false);
-        }
+        // 暂时屏蔽检查水滴运动方向
+//        if (getX() < boundGridImg.getX() ||
+//            getX() + getWidth() > boundGridImg.getX() + boundGridImg.getWidth() - 2 ||
+//            getY() < boundGridImg.getY() ||
+//            getY() + getHeight() > boundGridImg.getY() + boundGridImg.getHeight() + 2) {
+//            setVisible(false);
+//        }
     }
     
     public void setExplodedState(boolean isExploded) {
@@ -105,7 +108,7 @@ public class SmallWaterActor extends Actor {
     }
     
     private void checkState() {
-        if (region == null && !isVisible()) {
+        if (region == null || !isVisible()) {
             return;
         }
     }
