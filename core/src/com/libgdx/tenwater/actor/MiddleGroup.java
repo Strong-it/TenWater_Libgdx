@@ -1,6 +1,7 @@
 package com.libgdx.tenwater.actor;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
@@ -32,8 +33,19 @@ public class MiddleGroup extends BaseGroup {
 	
 	public MiddleGroup(TenWaterGame game) {
 		super(game);
+		
+		xmlParser = new XMLParser();
+        xmlParser.initData(Gdx.files.internal("classic/classic.xml"));
 		init();
 	}
+	
+	public MiddleGroup(TenWaterGame game, FileHandle filepath) {
+        super(game);
+        
+        xmlParser = new XMLParser();
+        xmlParser.initData(filepath);
+        init();
+    }
 
 	public void init() {
 	    this.clear();
@@ -48,10 +60,6 @@ public class MiddleGroup extends BaseGroup {
 		float gridImgX = getGame().VIRTUAL_WORLD_WIDTH / 2 - AssetsManager.assetsManager.assetsBg.cellTxt.getWidth() / 2;
 	    float gridImgY = (getGame().VIRTUAL_WORLD_HEIGHT - AssetsManager.assetsManager.assetsBg.cellTxt.getHeight() >> 1) + 20;
 	    gridImg.setPosition(gridImgX, gridImgY);
-		
-		
-		xmlParser = new XMLParser();
-		xmlParser.initData(Gdx.files.internal("classic/classic.xml"));
 		
 		resetGameData();
 	}

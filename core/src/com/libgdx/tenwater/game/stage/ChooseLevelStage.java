@@ -1,5 +1,7 @@
 package com.libgdx.tenwater.game.stage;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
@@ -11,10 +13,13 @@ import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.viewport.Viewport;
+import com.libgdx.tenwater.TenWaterGame;
+import com.libgdx.tenwater.game.ClassicGameScreen;
 import com.libgdx.tenwater.utils.AssetsManager;
 
 public class ChooseLevelStage extends Stage {
     
+    private TenWaterGame game;
     private float worldX;
     private Image[] levelImg;
     public ImageButton backBtn;
@@ -29,8 +34,9 @@ public class ChooseLevelStage extends Stage {
         initStage();
     }
     
-    public ChooseLevelStage(Viewport viewport, Batch batch) {
-        super(viewport, batch);
+    public ChooseLevelStage(Viewport viewport, TenWaterGame game) {
+        super(viewport, game.batch);
+        this.game = game;
         initStage();
     }
     
@@ -45,12 +51,13 @@ public class ChooseLevelStage extends Stage {
                 levelImg[i].setX(levelImg[i -1].getX() + levelImg[i -1].getWidth() + worldX);
             }
             levelImg[i].setY(getHeight() / 2 - levelImg[i].getHeight() / 2);
+            final FileHandle filepath = Gdx.files.internal("Level/LevelPack" +(i+1)+ ".xml");
             levelImg[i].addListener(new ClickListener() {
 
                 @Override
                 public void clicked(InputEvent event, float x, float y) {
-                    System.out.println("click level image");
-                    super.clicked(event, x, y);
+                    // 不响应升级的点击按钮，因为数据不一样
+//                    game.setScreen(new ClassicGameScreen(game, filepath));
                 }
                 
             });

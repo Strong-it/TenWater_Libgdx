@@ -31,7 +31,7 @@ public class MenuScreen extends AbstractBaseScreen {
     @Override
     public void show() {
         showLevelStage = false;
-        levelStage = new ChooseLevelStage(game.viewport, game.batch);
+        levelStage = new ChooseLevelStage(game.viewport, game);
         levelStage.backBtn.addListener(new ClickListener() {
 
             @Override
@@ -53,7 +53,7 @@ public class MenuScreen extends AbstractBaseScreen {
 
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                game.setScreen(new ClassicGameScreen(game));
+                game.setScreen(new ClassicGameScreen(game, Gdx.files.internal("classic/classic.xml")));
             }
             
         });

@@ -1,6 +1,7 @@
 package com.libgdx.tenwater.game;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -20,6 +21,7 @@ public class ClassicGameScreen extends AbstractBaseScreen {
     private Stage stage;
     private Image bgImg;
     
+    FileHandle filepath;
     TopGroup topGroup;
     BottomGroup bottomGroup;
     MiddleGroup middleGroup;
@@ -27,8 +29,9 @@ public class ClassicGameScreen extends AbstractBaseScreen {
     
     public ClassicGameScreen() { }
     
-    public ClassicGameScreen(TenWaterGame game) {
+    public ClassicGameScreen(TenWaterGame game, FileHandle filepath) {
         super(game);
+        this.filepath = filepath;
     }
 
     @Override
@@ -57,7 +60,7 @@ public class ClassicGameScreen extends AbstractBaseScreen {
 		   		")  ButtomGroup width=" + bottomGroup.getWidth() + " Height=" + bottomGroup.getHeight());
        
        // 游戏的中间部分，包括网格，水滴的
-       middleGroup = new MiddleGroup(game);
+       middleGroup = new MiddleGroup(game, filepath);
 //       为了方便获取坐标，将坐标放入MiddleGroup里面
 //       float middleGroupX = game.VIRTUAL_WORLD_WIDTH / 2 - AssetsManager.assetsManager.assetsBg.cellTxt.getWidth() / 2;
 //       float middleGroupY = (game.VIRTUAL_WORLD_HEIGHT - AssetsManager.assetsManager.assetsBg.cellTxt.getHeight() >> 1) + 20;
