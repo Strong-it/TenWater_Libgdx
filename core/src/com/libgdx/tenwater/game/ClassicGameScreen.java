@@ -58,6 +58,9 @@ public class ClassicGameScreen extends AbstractBaseScreen {
 //       middleGroup.setPosition(middleGroupX, middleGroupY);
 //       Gdx.app.log(TAG, "gridImage X=" + middleGroup.getGridImage().getX() + "  gridY=" + middleGroup.getY());
        
+       // 设置当前关卡数
+       topGroup.setCurrentLevel("" + middleGroup.getCurLevel());
+       
        stage.addActor(bgImg);
        stage.addActor(middleGroup);
        stage.addActor(topGroup);

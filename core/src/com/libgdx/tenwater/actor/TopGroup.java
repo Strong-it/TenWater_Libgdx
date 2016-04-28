@@ -22,7 +22,7 @@ public class TopGroup extends BaseGroup {
 		
 		levelImg = new Image(AssetsManager.assetsManager.assetsBtn.levelBtnTxt);
 		// 设置的坐标是相对于Group来说的
-		levelImg.setX(getGame().VIRTUAL_WORLD_WIDTH >> 1 - 30);
+		levelImg.setX(getGame().VIRTUAL_WORLD_WIDTH >> 1);
 //		设置levelImage为半透明
 //		levelImg.getColor().a = 0.5f;
 		
@@ -34,7 +34,7 @@ public class TopGroup extends BaseGroup {
 		style.font = AssetsManager.assetsManager.assetsfont.defaultFont;
 		
 		currentLevel = new Label("current", style);
-		currentLevel.setX(levelImg.getX() + levelImg.getWidth() + 30);
+		currentLevel.setX(levelImg.getX() + levelImg.getWidth());
 		topLevel = new Label("top", style);
 		topLevel.setPosition(currentLevel.getX(), currentLevel.getY() + currentLevel.getHeight());
 		

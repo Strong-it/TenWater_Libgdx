@@ -92,6 +92,10 @@ public class MiddleGroup extends BaseGroup {
 		return gridImg;
 	}
 	
+	public int getCurLevel() {
+        return curLevel + 1;
+    }
+	
     @Override
     public void act(float delta) {
         super.act(delta);

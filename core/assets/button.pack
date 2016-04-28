@@ -1,7 +1,7 @@
 
 button.png
 format: RGBA8888
-filter: Linear,Linear
+filter: Nearest,Nearest
 repeat: none
 btn_continue
   rotate: false
@@ -52,23 +52,16 @@ shengji_down
   orig: 200, 120
   offset: 0, 0
   index: -1
-level
-  rotate: false
-  xy: 203, 163
-  size: 160, 80
-  orig: 160, 80
-  offset: 0, 0
-  index: -1
 back
   rotate: false
-  xy: 203, 26
+  xy: 203, 108
   size: 85, 135
   orig: 85, 135
   offset: 0, 0
   index: -1
 back_down
   rotate: false
-  xy: 290, 26
+  xy: 290, 108
   size: 85, 135
   orig: 85, 135
   offset: 0, 0
@@ -117,35 +110,42 @@ musicon
   index: -1
 icon
   rotate: false
-  xy: 579, 250
+  xy: 203, 6
   size: 100, 100
   orig: 100, 100
   offset: 0, 0
   index: -1
+level
+  rotate: false
+  xy: 377, 158
+  size: 130, 70
+  orig: 130, 70
+  offset: 0, 0
+  index: -1
 lock
   rotate: false
-  xy: 681, 262
+  xy: 305, 18
   size: 88, 88
   orig: 88, 88
   offset: 0, 0
   index: -1
 unlock
   rotate: false
-  xy: 771, 262
+  xy: 579, 262
   size: 88, 88
   orig: 88, 88
   offset: 0, 0
   index: -1
 icon_arrow
   rotate: false
-  xy: 365, 167
+  xy: 955, 411
   size: 32, 76
   orig: 32, 76
   offset: 0, 0
   index: -1
 numBg
   rotate: false
-  xy: 955, 455
+  xy: 509, 196
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
