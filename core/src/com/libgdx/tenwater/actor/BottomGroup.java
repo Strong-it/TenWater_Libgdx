@@ -41,17 +41,12 @@ public class BottomGroup extends BaseGroup{
         
        resetBtn = new ImageButton(new TextureRegionDrawable(AssetsManager.assetsManager.assetsBtn.resetBtnTxt));
        resetBtn.setX(getGame().VIRTUAL_WORLD_WIDTH - resetBtn.getWidth() - 20f);
-       resetBtn.addListener(new ClickListener() {
-
-		@Override
-		public void clicked(InputEvent event, float x, float y) {
-			// 处理重置按钮
-			System.out.println("press reset button");
-		}
-    	   
-       });
        
        addActor(backBtn);
        addActor(resetBtn);
+	}
+	
+	public ImageButton getResetButton() {
+	    return resetBtn;
 	}
 }
