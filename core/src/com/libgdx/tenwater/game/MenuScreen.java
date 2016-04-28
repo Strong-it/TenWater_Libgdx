@@ -83,7 +83,11 @@ public class MenuScreen extends AbstractBaseScreen {
 
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                Gdx.app.log(TAG, "Music" + musicBtn.isChecked());   
+                if (musicBtn.isChecked() && isPlayingMusic()) {
+                    stopMusic();
+                } else {
+                    playMusic();
+                }
             }
             
         });
@@ -102,6 +106,8 @@ public class MenuScreen extends AbstractBaseScreen {
         tabel.pack();
         
         stage.addActor(tabel);
+        
+        playMusic();
     }
 
     @Override
@@ -134,4 +140,16 @@ public class MenuScreen extends AbstractBaseScreen {
         levelStage.dispose();
     }
 
+    private void playMusic() {
+        AssetsManager.assetsManager.assetsMusic.bgMusic.play();
+        AssetsManager.assetsManager.assetsMusic.bgMusic.setLooping(true);
+    }
+    
+    private void stopMusic() {
+        AssetsManager.assetsManager.assetsMusic.bgMusic.stop();
+    }
+    
+    private boolean isPlayingMusic() {
+        return AssetsManager.assetsManager.assetsMusic.bgMusic.isPlaying();
+    }
 }

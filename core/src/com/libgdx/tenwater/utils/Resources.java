@@ -38,7 +38,8 @@ public class Resources {
         public static final String level10 = "Level/LevelPack10.xml";
         public static final String level11 = "Level/LevelPack11.xml";
     }
-    public class GameSound {
-        
+    
+    public class GameMusic {
+        public static final String bgMusic = "bgm.wav";
     }
 }

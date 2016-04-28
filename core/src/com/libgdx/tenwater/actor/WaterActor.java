@@ -174,7 +174,11 @@ public class WaterActor extends Actor {
 
         @Override
         public void clicked(InputEvent event, float x, float y) {
-            addKeyFrameIndex();
+            if (TopGroup.getRemainWaterNum() > 0) {
+                addKeyFrameIndex();
+                TopGroup.setRemainWaterNum(TopGroup.getRemainWaterNum() - 1);
+            }
+            
             super.clicked(event, x, y);
         }
         

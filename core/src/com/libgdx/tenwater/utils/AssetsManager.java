@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetDescriptor;
 import com.badlogic.gdx.assets.AssetErrorListener;
 import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.Texture.TextureFilter;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -21,6 +22,7 @@ public class AssetsManager implements Disposable, AssetErrorListener {
     public AssetsBtn assetsBtn;
     public AssetsWater assetsWater;
     public AssetsFont assetsfont;
+    public AssetsMusic assetsMusic;
     private AssetManager assetManager;
     
     private final int LEVEL_NUM = 11;
@@ -32,7 +34,7 @@ public class AssetsManager implements Disposable, AssetErrorListener {
     	
     	public AssetsFont() {
     		defaultFont = new BitmapFont();
-    		defaultFont.getData().scale(1.2f);
+    		defaultFont.getData().scale(1.1f);
     		defaultFont.getRegion().getTexture().setFilter(TextureFilter.Linear, TextureFilter.Linear);
     	}
     }
@@ -51,6 +53,7 @@ public class AssetsManager implements Disposable, AssetErrorListener {
         assetManager.load(Resources.GameImage.classic_winFgImg, Texture.class);
         assetManager.load(Resources.GameImage.classic_loseFgImg, Texture.class);
         assetManager.load(Resources.GameImage.cellImg, Texture.class);
+        assetManager.load(Resources.GameMusic.bgMusic, Music.class);
         
         // 加载游戏选关的背景， 路径未定义在Resources类里面
         for (int i = 0; i < LEVEL_NUM; i++) {
@@ -78,6 +81,7 @@ public class AssetsManager implements Disposable, AssetErrorListener {
         assetsWater = new AssetsWater(atlas);
         
         assetsfont = new AssetsFont();
+        assetsMusic = new AssetsMusic(assetManager);
     }
     
     public class AssetsBg {
@@ -170,6 +174,14 @@ public class AssetsManager implements Disposable, AssetErrorListener {
             
             sbackTxt = atlas.findRegion("sback");
             speedWaterTxt = atlas.findRegion("speeddrop");
+        }
+    }
+    
+    public class AssetsMusic {
+        public final Music bgMusic;
+        
+        public AssetsMusic(AssetManager am) {
+            bgMusic = am.get(Resources.GameMusic.bgMusic, Music.class);
         }
     }
     

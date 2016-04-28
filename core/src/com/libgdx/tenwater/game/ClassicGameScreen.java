@@ -26,6 +26,7 @@ public class ClassicGameScreen extends AbstractBaseScreen {
     BottomGroup bottomGroup;
     MiddleGroup middleGroup;
     Window nextWindow;
+    Window failedWindow;
     
     public ClassicGameScreen() { }
     
@@ -89,6 +90,9 @@ public class ClassicGameScreen extends AbstractBaseScreen {
        // 初始化下一关窗口
        initNextGameWindow();
        
+       // 初始化挑战失败的窗口
+       initFailedGameWindow();
+       
     }
 
     @Override
@@ -101,6 +105,10 @@ public class ClassicGameScreen extends AbstractBaseScreen {
         if (!nextWindow.isVisible() && middleGroup.checkGameOver()) {
             nextWindow.setVisible(true);
         }
+        
+        if (TopGroup.getRemainWaterNum() == 0) {
+            failedWindow.setVisible(true);
+        }
     }
 
     @Override
@@ -110,7 +118,7 @@ public class ClassicGameScreen extends AbstractBaseScreen {
     }
     
     public void initNextGameWindow() {
-     // 当游戏结束时，出现对话框
+        // 闯关成功，出现对话框
         Window.WindowStyle windowStyle = new Window.WindowStyle();
         windowStyle.background = new TextureRegionDrawable(
                                 new TextureRegion(AssetsManager.assetsManager.assetsBg.classic_winFgTxt));
@@ -128,6 +136,7 @@ public class ClassicGameScreen extends AbstractBaseScreen {
                 middleGroup.addCurLevel();
                 middleGroup.resetGameData();
                 topGroup.setCurrentLevel("" + middleGroup.getCurLevel());
+                TopGroup.setRemainWaterNum(TopGroup.getRemainWaterNum() + 1);
             }
             
         });
@@ -135,4 +144,26 @@ public class ClassicGameScreen extends AbstractBaseScreen {
         stage.addActor(nextWindow);
     }
 
+    public void initFailedGameWindow() {
+        // 当剩余水滴数为0时，游戏失败，返回菜单键
+        Window.WindowStyle windowStyle = new Window.WindowStyle();
+        windowStyle.background = new TextureRegionDrawable(
+                                new TextureRegion(AssetsManager.assetsManager.assetsBg.classic_loseFgTxt));
+        windowStyle.titleFont = AssetsManager.assetsManager.assetsfont.defaultFont;
+        failedWindow  = new Window("", windowStyle);
+        failedWindow.setModal(true);
+        failedWindow.setX(middleGroup.getGridImage().getX() + middleGroup.getGridImage().getWidth() / 2 - nextWindow.getWidth() /2);
+        failedWindow.setY(middleGroup.getGridImage().getY() + middleGroup.getGridImage().getHeight() / 2 - nextWindow.getHeight() /2);
+        failedWindow.setVisible(false);
+        failedWindow.addListener(new ClickListener() {
+
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                game.setScreen(new MenuScreen(game));
+            }
+            
+        });
+        
+        stage.addActor(failedWindow);
+    }
 }
