@@ -23,6 +23,21 @@ public class Resources {
         public static final String water_path = "water.pack";
     }
     
+    public class GameLevel {
+        public static final String classic = "classic/classic.xml";
+        
+        public static final String level1 = "Level/LevelPack1.xml";
+        public static final String level2 = "Level/LevelPack2.xml";
+        public static final String level3 = "Level/LevelPack3.xml";
+        public static final String level4 = "Level/LevelPack4.xml";
+        public static final String level5 = "Level/LevelPack5.xml";
+        public static final String level6 = "Level/LevelPack6.xml";
+        public static final String level7 = "Level/LevelPack7.xml";
+        public static final String level8 = "Level/LevelPack8.xml";
+        public static final String level9 = "Level/LevelPack9.xml";
+        public static final String level10 = "Level/LevelPack10.xml";
+        public static final String level11 = "Level/LevelPack11.xml";
+    }
     public class GameSound {
         
     }

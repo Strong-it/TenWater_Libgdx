@@ -95,12 +95,12 @@ public class SmallWaterActor extends Actor {
     
     private void checkBounds() {
         // 暂时屏蔽检查水滴运动方向
-//        if (getX() < boundGridImg.getX() ||
-//            getX() + getWidth() > boundGridImg.getX() + boundGridImg.getWidth() - 2 ||
-//            getY() < boundGridImg.getY() ||
-//            getY() + getHeight() > boundGridImg.getY() + boundGridImg.getHeight() + 2) {
-//            setVisible(false);
-//        }
+        if (getX() < boundGridImg.getX() ||
+            getX() + getWidth() > boundGridImg.getX() + boundGridImg.getWidth() - 2 ||
+            getY() < boundGridImg.getY() ||
+            getY() + getHeight() > boundGridImg.getY() + boundGridImg.getHeight() + 2) {
+            setVisible(false);
+        }
     }
     
     public void setExplodedState(boolean isExploded) {

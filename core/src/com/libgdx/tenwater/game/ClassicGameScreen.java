@@ -13,7 +13,6 @@ import com.libgdx.tenwater.actor.BottomGroup;
 import com.libgdx.tenwater.actor.MiddleGroup;
 import com.libgdx.tenwater.actor.TopGroup;
 import com.libgdx.tenwater.utils.AssetsManager;
-import com.sun.java.swing.plaf.windows.resources.windows;
 
 public class ClassicGameScreen extends AbstractBaseScreen {
 	private static final String TAG = ClassicGameScreen.class.getSimpleName();
@@ -94,7 +93,7 @@ public class ClassicGameScreen extends AbstractBaseScreen {
         super.render(delta);
         
         stage.act(Math.min(delta, 1/60f));
-        stage.draw();
+        stage.draw(); 
         
         if (!nextWindow.isVisible() && middleGroup.checkGameOver()) {
             nextWindow.setVisible(true);
